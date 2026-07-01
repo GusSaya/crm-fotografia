@@ -146,6 +146,7 @@
     <div><div class="wordmark">Contactos</div><div class="tagline">Registro de ventas · Madrid</div></div>
   </div>
   <div class="spacer"></div>
+  <button class="btn-icon" id="storageBtn" title="Dónde se guardan los datos">💾 Guardar en archivo</button>
   <button class="btn-icon" id="settingsBtn" title="Ajustes de listas">⚙ Ajustes</button>
   <button class="btn-ghost" id="exportBtn">↓ Exportar CSV</button>
   <button class="btn-primary" id="newBtn">＋ Nuevo cliente</button>
@@ -240,6 +241,23 @@
   </div>
 </div>
 
+<!-- Storage modal -->
+<div class="backdrop" id="storageBackdrop">
+  <div class="modal">
+    <header><h2>Almacenamiento<span class="sub">Dónde se guardan los datos</span></h2><button class="x" id="closeStorage">&times;</button></header>
+    <div class="body">
+      <p id="storageStatus" style="font-family:var(--mono);font-size:12.5px;color:var(--ink-soft);margin-top:0"></p>
+      <p style="font-size:13px;color:var(--muted);line-height:1.55">Guarda tus datos en un archivo de tu ordenador en vez del navegador. <b>Sobrevive</b> aunque borres cookies o el historial. Consejo: elige una carpeta de <b>OneDrive</b> o <b>Google Drive</b> para tener copia automática y sincronización entre dispositivos.</p>
+      <div style="display:flex;flex-direction:column;gap:10px;margin-top:18px">
+        <button class="btn-primary" id="fsNew">💾 Crear archivo nuevo…</button>
+        <button class="btn-ghost" id="fsOpen">📂 Abrir archivo existente…</button>
+        <button class="btn-ghost" id="fsReconnect" style="display:none">🔗 Reconectar archivo</button>
+        <button class="btn-ghost" id="fsDisconnect" style="display:none;color:var(--crimson)">Desconectar (volver al navegador)</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
 const KEY='crm_fotografia_v1';
 const CFG_KEY='crm_fotografia_cfg_v1';
@@ -256,9 +274,17 @@ let cfg=JSON.parse(localStorage.getItem(CFG_KEY)||'null')||structuredClone(DEFAU
 if(!cfg._mv){ if(!cfg.methods.includes('Instagram')) cfg.methods.push('Instagram'); cfg._mv=1; localStorage.setItem(CFG_KEY,JSON.stringify(cfg)); }
 let openClientId=null;
 
+/* ---- File System Access (guardar en archivo del ordenador) ---- */
+const FS_SUPPORTED='showSaveFilePicker' in window;
+let fileHandle=null, permOK=false, needsReconnect=false;
+function idb(){return new Promise((res,rej)=>{const r=indexedDB.open('crm_fs',1);r.onupgradeneeded=()=>r.result.createObjectStore('kv');r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error);});}
+async function idbSet(k,v){const db=await idb();return new Promise((res,rej)=>{const t=db.transaction('kv','readwrite');t.objectStore('kv').put(v,k);t.oncomplete=()=>res();t.onerror=()=>rej(t.error);});}
+async function idbGet(k){const db=await idb();return new Promise((res,rej)=>{const t=db.transaction('kv','readonly');const q=t.objectStore('kv').get(k);q.onsuccess=()=>res(q.result);q.onerror=()=>rej(q.error);});}
+async function idbDel(k){const db=await idb();return new Promise((res)=>{const t=db.transaction('kv','readwrite');t.objectStore('kv').delete(k);t.oncomplete=()=>res();});}
+
 const $=s=>document.querySelector(s);
-const save=()=>localStorage.setItem(KEY,JSON.stringify(data));
-const saveCfg=()=>localStorage.setItem(CFG_KEY,JSON.stringify(cfg));
+const save=()=>{localStorage.setItem(KEY,JSON.stringify(data));scheduleWrite();};
+const saveCfg=()=>{localStorage.setItem(CFG_KEY,JSON.stringify(cfg));scheduleWrite();};
 const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
 const esc=s=>(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const today=()=>new Date().toISOString().slice(0,10);
@@ -492,7 +518,90 @@ $('#doneSettings').addEventListener('click',closeSettings);
 $('#search').addEventListener('input',render);
 $('#filterStatus').addEventListener('change',render);
 $('#filterMethod').addEventListener('change',render);
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeClient();closeDetail();closeSettings();}});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeClient();closeDetail();closeSettings();$('#storageBackdrop').classList.remove('open');}});
+
+/* ---- File storage: write / load / connect ---- */
+let _writing=false,_dirty=false;
+async function writeNow(){
+  if(!fileHandle||!permOK)return;
+  const w=await fileHandle.createWritable();
+  await w.write(JSON.stringify({data,cfg},null,2));
+  await w.close();
+}
+function scheduleWrite(){
+  if(!fileHandle||!permOK)return;
+  if(_writing){_dirty=true;return;}
+  _writing=true;
+  writeNow().catch(e=>console.warn('write fail',e)).finally(()=>{_writing=false;if(_dirty){_dirty=false;scheduleWrite();}});
+}
+async function loadFromFile(){
+  const f=await fileHandle.getFile();
+  const text=await f.text();
+  if(text.trim()){
+    const obj=JSON.parse(text);
+    if(Array.isArray(obj)){ data=obj.map(migrate); }
+    else{ if(obj.data)data=obj.data.map(migrate); if(obj.cfg)cfg=obj.cfg; }
+    localStorage.setItem(KEY,JSON.stringify(data));
+    localStorage.setItem(CFG_KEY,JSON.stringify(cfg));
+    fillControls(); render();
+  }else{ await writeNow(); }
+}
+function updateStorageUI(state){
+  const btn=$('#storageBtn'),rec=$('#fsReconnect'),dis=$('#fsDisconnect'),st=$('#storageStatus');
+  if(rec)rec.style.display='none'; if(dis)dis.style.display='none';
+  if(state==='unsupported'){ if(btn)btn.style.display='none'; if(st)st.innerHTML='Este navegador no permite guardar en archivo; los datos se guardan en el navegador. Usa <b>Edge</b> o <b>Chrome</b> de escritorio para esta función.'; return; }
+  if(!btn)return;
+  if(state==='connected'){ btn.textContent='📄 '+fileHandle.name; if(st)st.innerHTML='✅ Guardando en el archivo <b>'+esc(fileHandle.name)+'</b>.'; if(dis)dis.style.display='block'; }
+  else if(state==='reconnect'){ btn.textContent='⚠ Reconectar'; if(st)st.innerHTML='⚠ Hay un archivo conectado (<b>'+esc(fileHandle.name)+'</b>) pero el navegador necesita permiso otra vez. Pulsa «Reconectar archivo».'; if(rec)rec.style.display='block'; if(dis)dis.style.display='block'; }
+  else{ btn.textContent='💾 Guardar en archivo'; if(st)st.textContent='Ahora mismo los datos se guardan en este navegador (localStorage).'; }
+}
+async function connectNew(){
+  try{
+    const h=await window.showSaveFilePicker({suggestedName:'contactos-crm.json',types:[{description:'Datos CRM',accept:{'application/json':['.json']}}]});
+    fileHandle=h;permOK=true;needsReconnect=false;
+    await idbSet('handle',h); await writeNow(); updateStorageUI('connected');
+    alert('Listo ✅ Tus datos se guardan ahora en:\n'+h.name+'\n\nConsejo: si el archivo está en OneDrive/Drive tendrás copia y sincronización.');
+  }catch(e){ if(e.name!=='AbortError')alert('No se pudo crear el archivo: '+e.message); }
+}
+async function connectExisting(){
+  try{
+    const [h]=await window.showOpenFilePicker({types:[{description:'Datos CRM',accept:{'application/json':['.json']}}]});
+    fileHandle=h;permOK=true;needsReconnect=false;
+    await idbSet('handle',h); await loadFromFile(); updateStorageUI('connected');
+    $('#storageBackdrop').classList.remove('open');
+  }catch(e){ if(e.name!=='AbortError')alert('No se pudo abrir el archivo: '+e.message); }
+}
+async function reconnect(){
+  if(!fileHandle)return;
+  try{
+    const p=await fileHandle.requestPermission({mode:'readwrite'});
+    if(p==='granted'){ permOK=true;needsReconnect=false; await loadFromFile(); updateStorageUI('connected'); $('#storageBackdrop').classList.remove('open'); }
+    else alert('No se concedió el permiso al archivo.');
+  }catch(e){ alert('Error: '+e.message); }
+}
+async function disconnect(){
+  fileHandle=null;permOK=false;needsReconnect=false;
+  await idbDel('handle'); updateStorageUI('browser');
+}
+async function initStorage(){
+  if(!FS_SUPPORTED){ updateStorageUI('unsupported'); return; }
+  try{
+    const h=await idbGet('handle');
+    if(h){ fileHandle=h;
+      const p=await h.queryPermission({mode:'readwrite'});
+      if(p==='granted'){ permOK=true; await loadFromFile(); updateStorageUI('connected'); }
+      else{ needsReconnect=true; updateStorageUI('reconnect'); }
+    }else updateStorageUI('browser');
+  }catch(e){ console.warn(e); updateStorageUI('browser'); }
+}
+function openStorage(){ $('#storageBackdrop').classList.add('open'); }
+$('#storageBtn').addEventListener('click',openStorage);
+$('#closeStorage').addEventListener('click',()=>$('#storageBackdrop').classList.remove('open'));
+$('#storageBackdrop').addEventListener('click',e=>{if(e.target===$('#storageBackdrop'))$('#storageBackdrop').classList.remove('open');});
+$('#fsNew').addEventListener('click',connectNew);
+$('#fsOpen').addEventListener('click',connectExisting);
+$('#fsReconnect').addEventListener('click',reconnect);
+$('#fsDisconnect').addEventListener('click',disconnect);
 
 /* ---- seed & boot ---- */
 if(data.length===0){
@@ -508,6 +617,7 @@ if(data.length===0){
 }
 fillControls();
 render();
+initStorage();
 </script>
 </body>
 </html>

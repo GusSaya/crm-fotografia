@@ -438,7 +438,7 @@ $('#saveAct').addEventListener('click',()=>{
   c.status=$('#aStatus').value; c.followup=$('#aFollowup').value;
   save();$('#actForm').style.display='none';openDetail(openClientId);render();
 });
-$('#editClientBtn').addEventListener('click',()=>openClient(openClientId));
+$('#editClientBtn').addEventListener('click',()=>{const id=openClientId;closeDetail();openClient(id);});
 $('#delClientBtn').addEventListener('click',()=>{
   const c=data.find(x=>x.id===openClientId);
   if(confirm(`¿Eliminar «${c.name}» y todo su historial?`)){data=data.filter(x=>x.id!==openClientId);save();closeDetail();render();}

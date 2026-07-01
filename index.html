@@ -148,6 +148,8 @@
   <div class="spacer"></div>
   <button class="btn-icon" id="storageBtn" title="Dónde se guardan los datos">💾 Guardar en archivo</button>
   <button class="btn-icon" id="settingsBtn" title="Ajustes de listas">⚙ Ajustes</button>
+  <input type="file" id="csvInput" accept=".csv,text/csv" style="display:none">
+  <button class="btn-ghost" id="importBtn">↑ Importar CSV</button>
   <button class="btn-ghost" id="exportBtn">↓ Exportar CSV</button>
   <button class="btn-primary" id="newBtn">＋ Nuevo cliente</button>
 </header>
@@ -494,17 +496,71 @@ $('#resetSettings').addEventListener('click',()=>{if(confirm('¿Restaurar las li
 /* ---- Export: one row per activity ---- */
 $('#exportBtn').addEventListener('click',()=>{
   if(data.length===0){alert('No hay datos para exportar.');return;}
-  const head=['Cliente','Tipo','Zona','Estado','Contacto','Fecha','Canal','Notas'];
+  const head=['Cliente','Tipo','Zona','Estado','Contacto','Seguimiento','Fecha','Canal','Notas'];
   const rows=[head.join(',')];
   data.forEach(c=>{
     const acts=sortedActs(c);
     if(acts.length===0)acts.push({date:'',method:'',notes:''});
     acts.forEach(a=>{
-      rows.push([c.name,c.placeType,c.location,c.status,c.phone,a.date,a.method,a.notes].map(x=>`"${(x||'').replace(/"/g,'""')}"`).join(','));
+      rows.push([c.name,c.placeType,c.location,c.status,c.phone,c.followup,a.date,a.method,a.notes].map(x=>`"${(x||'').replace(/"/g,'""')}"`).join(','));
     });
   });
   const blob=new Blob(['﻿'+rows.join('\n')],{type:'text/csv;charset=utf-8'});
   const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='contactos-crm.csv';a.click();
+});
+
+/* ---- Import CSV (restaurar desde copia) ---- */
+function parseCSV(text){
+  text=text.replace(/^﻿/,'');
+  const rows=[];let row=[],field='',inQ=false;
+  for(let i=0;i<text.length;i++){
+    const ch=text[i];
+    if(inQ){ if(ch==='"'){ if(text[i+1]==='"'){field+='"';i++;} else inQ=false; } else field+=ch; }
+    else{
+      if(ch==='"')inQ=true;
+      else if(ch===',')  {row.push(field);field='';}
+      else if(ch==='\n') {row.push(field);rows.push(row);row=[];field='';}
+      else if(ch==='\r') {/* skip */}
+      else field+=ch;
+    }
+  }
+  if(field.length||row.length){row.push(field);rows.push(row);}
+  return rows;
+}
+function normDate(s){
+  s=(s||'').trim(); if(!s)return '';
+  if(/^\d{4}-\d{2}-\d{2}$/.test(s))return s;
+  const m=s.match(/^(\d{1,2})[\/\-.](\d{1,2})[\/\-.](\d{2,4})$/);
+  if(m){let y=m[3];if(y.length===2)y='20'+y;return `${y}-${m[2].padStart(2,'0')}-${m[1].padStart(2,'0')}`;}
+  return s;
+}
+function importCSV(text){
+  const rows=parseCSV(text).filter(r=>r.some(c=>c.trim()!==''));
+  if(rows.length<2){alert('El archivo CSV está vacío o no tiene datos.');return;}
+  const head=rows[0].map(h=>h.trim().toLowerCase());
+  const ci={}; ['cliente','tipo','zona','estado','contacto','seguimiento','fecha','canal','notas'].forEach(k=>ci[k]=head.indexOf(k));
+  if(ci.cliente<0){alert('No encuentro la columna «Cliente». ¿Es un CSV exportado por esta app?');return;}
+  const byName=new Map();
+  for(let i=1;i<rows.length;i++){
+    const r=rows[i], g=k=>ci[k]>=0?(r[ci[k]]||'').trim():'';
+    const name=g('cliente'); if(!name)continue;
+    let c=byName.get(name);
+    if(!c){c={id:uid(),name,placeType:g('tipo'),location:g('zona'),status:g('estado')||'Nuevo',phone:g('contacto'),followup:normDate(g('seguimiento')),activities:[]};byName.set(name,c);}
+    const fecha=normDate(g('fecha')),canal=g('canal'),notas=g('notas');
+    if(fecha||canal||notas)c.activities.push({id:uid(),date:fecha,method:canal,notes:notas});
+  }
+  const imported=[...byName.values()];
+  if(imported.length===0){alert('No se encontraron clientes en el CSV.');return;}
+  if(!confirm(`Se importarán ${imported.length} cliente(s) y REEMPLAZARÁN los datos actuales.\n\n¿Continuar? (Consejo: exporta antes por si acaso.)`))return;
+  data=imported;save();render();
+  alert('✅ Importado correctamente: '+imported.length+' cliente(s).');
+}
+$('#importBtn').addEventListener('click',()=>$('#csvInput').click());
+$('#csvInput').addEventListener('change',e=>{
+  const f=e.target.files[0]; if(!f){return;}
+  const rd=new FileReader();
+  rd.onload=()=>{ try{importCSV(rd.result);}catch(err){alert('No se pudo leer el CSV: '+err.message);} e.target.value=''; };
+  rd.readAsText(f);
 });
 
 /* ---- wire up ---- */

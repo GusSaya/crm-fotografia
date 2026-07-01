@@ -21,17 +21,13 @@
   body{
     margin:0;font-family:var(--sans);background:var(--paper);color:var(--ink);
     font-size:15px;line-height:1.5;
-    background-image:radial-gradient(rgba(27,23,18,.025) 1px,transparent 1px);
-    background-size:22px 22px;
+    background-image:radial-gradient(rgba(27,23,18,.025) 1px,transparent 1px);background-size:22px 22px;
   }
-  .mono{font-family:var(--mono)}
   .label{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:500}
 
-  /* Header */
   header{
-    background:rgba(241,233,217,.9);backdrop-filter:blur(6px);
-    border-bottom:1px solid var(--ink);padding:16px 26px;
-    display:flex;align-items:center;gap:14px;flex-wrap:wrap;position:sticky;top:0;z-index:20;
+    background:rgba(241,233,217,.9);backdrop-filter:blur(6px);border-bottom:1px solid var(--ink);
+    padding:16px 26px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;position:sticky;top:0;z-index:20;
   }
   .brand{display:flex;align-items:center;gap:13px}
   .reticle{color:var(--ink);flex:none}
@@ -41,12 +37,7 @@
 
   .wrap{max-width:1180px;margin:0 auto;padding:26px}
 
-  /* Ticker / stats */
-  .stats{
-    display:grid;grid-template-columns:repeat(4,1fr);
-    border:1px solid var(--ink);border-radius:2px;background:var(--card);
-    overflow:hidden;margin-bottom:26px;box-shadow:var(--shadow);
-  }
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--ink);border-radius:2px;background:var(--card);overflow:hidden;margin-bottom:26px;box-shadow:var(--shadow)}
   .stat{padding:16px 20px;border-right:1px solid var(--line);position:relative}
   .stat:last-child{border-right:none}
   .stat::before{content:"";position:absolute;left:0;top:16px;bottom:16px;width:3px;background:var(--line)}
@@ -54,13 +45,9 @@
   .stat .n{font-family:var(--mono);font-size:30px;font-weight:600;line-height:1;letter-spacing:-.02em}
   .stat .l{margin-top:8px}
 
-  /* Toolbar */
   .toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:22px}
   input,select,textarea,button{font-family:var(--sans);font-size:14.5px;color:var(--ink)}
-  .search{
-    flex:1;min-width:220px;padding:11px 14px;border:1px solid var(--ink);border-radius:2px;
-    background:var(--card);font-family:var(--mono);font-size:13px;
-  }
+  .search{flex:1;min-width:220px;padding:11px 14px;border:1px solid var(--ink);border-radius:2px;background:var(--card);font-family:var(--mono);font-size:13px}
   .search::placeholder{color:var(--muted)}
   select.filter{padding:11px 13px;border:1px solid var(--ink);border-radius:2px;background:var(--card);font-family:var(--mono);font-size:12.5px}
   button{cursor:pointer;border:1px solid var(--ink);border-radius:2px;padding:11px 16px;font-weight:600;transition:.12s;background:var(--card);letter-spacing:.02em}
@@ -70,39 +57,30 @@
   .btn-ghost:hover,.btn-icon:hover{background:var(--paper-2)}
   .btn-icon{font-family:var(--mono);font-size:13px}
 
-  /* Cards */
   .list{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:16px}
   .contact{
-    background:var(--card);border:1px solid var(--line);border-radius:2px;
-    padding:0 18px 16px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:10px;
-    position:relative;transition:.14s;border-top:3px solid var(--ink);
+    background:var(--card);border:1px solid var(--line);border-radius:2px;padding:0 18px 16px;
+    box-shadow:var(--shadow);display:flex;flex-direction:column;gap:9px;position:relative;transition:.14s;
+    border-top:3px solid var(--ink);cursor:pointer;
   }
   .contact:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(27,23,18,.12)}
   .contact .top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;padding-top:16px}
   .contact .name{font-family:var(--serif);font-weight:700;font-size:19px;line-height:1.15}
   .contact .place-type{margin-top:3px}
   .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-family:var(--mono);font-size:11.5px;color:var(--ink-soft)}
-  .chip{
-    display:inline-flex;align-items:center;gap:5px;padding:3px 9px;border-radius:2px;
-    font-family:var(--mono);font-size:10.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;
-    border:1px solid currentColor;
-  }
+  .chip{display:inline-flex;align-items:center;gap:5px;padding:3px 9px;border-radius:2px;font-family:var(--mono);font-size:10.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;border:1px solid currentColor}
   .chip-method{border:1px solid var(--line);color:var(--ink-soft);background:var(--paper-2)}
-  .notes{
-    font-size:13.5px;color:var(--ink-soft);background:var(--paper);border-left:2px solid var(--crimson);
-    padding:9px 12px;white-space:pre-wrap;border-radius:0 2px 2px 0;font-style:italic;
-  }
+  .last-note{font-size:13.5px;color:var(--ink-soft);border-left:2px solid var(--line);padding:2px 0 2px 11px;font-style:italic;
+    display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
   .followup{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase}
-  .followup.due{color:var(--crimson)}
-  .followup.soon{color:#b8862f}
-  .card-actions{display:flex;gap:8px;margin-top:2px}
-  .card-actions button{padding:7px 13px;font-size:12px;font-family:var(--mono)}
+  .followup.due{color:var(--crimson)} .followup.soon{color:#b8862f}
+  .see{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--crimson);font-weight:600;margin-top:2px}
   .empty{text-align:center;color:var(--muted);padding:70px 20px;font-family:var(--mono);grid-column:1/-1;border:1px dashed var(--line);border-radius:2px}
 
-  /* Modal */
   .backdrop{position:fixed;inset:0;background:rgba(27,23,18,.5);display:none;align-items:flex-start;justify-content:center;padding:32px 16px;z-index:50;overflow:auto}
   .backdrop.open{display:flex}
   .modal{background:var(--paper);border:1px solid var(--ink);border-radius:3px;width:100%;max-width:540px;box-shadow:0 24px 70px rgba(0,0,0,.35);overflow:hidden}
+  .modal.wide{max-width:600px}
   .modal header{position:static;padding:20px 22px;border-bottom:1px solid var(--ink);align-items:baseline}
   .modal h2{font-family:var(--serif);font-size:21px;font-weight:700;margin:0}
   .modal h2 .sub{display:block;font-family:var(--mono);font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--crimson);margin-top:4px;font-weight:500}
@@ -111,14 +89,30 @@
   .field>label{display:block;margin-bottom:6px}
   .field input,.field select,.field textarea{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:2px;background:var(--card);font-size:14px}
   .field input:focus,.field select:focus,.field textarea:focus,.search:focus,select.filter:focus{outline:none;border-color:var(--crimson)}
-  .field textarea{min-height:82px;resize:vertical;font-family:var(--sans)}
-  .field.two{display:flex;gap:13px}
-  .field.two>div{flex:1}
+  .field textarea{min-height:78px;resize:vertical;font-family:var(--sans)}
+  .field.two{display:flex;gap:13px} .field.two>div{flex:1}
   .modal-actions{display:flex;justify-content:space-between;gap:10px;margin-top:8px}
   .x{background:none;border:none;font-size:24px;color:var(--muted);cursor:pointer;padding:0;line-height:1}
   .x:hover{color:var(--crimson)}
+  .divider{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--crimson);border-top:1px solid var(--line);padding-top:14px;margin:6px 0 14px;font-weight:600}
 
-  /* Settings */
+  /* Detail / timeline */
+  .client-meta{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;margin-bottom:16px;font-family:var(--mono);font-size:12px;color:var(--ink-soft)}
+  .detail-actions{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+  .detail-actions button{font-family:var(--mono);font-size:12px;padding:9px 13px}
+  .act-form{background:var(--card);border:1px solid var(--ink);border-radius:2px;padding:16px 16px 6px;margin-bottom:22px}
+  .timeline{position:relative;margin-top:4px}
+  .tl-title{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;font-weight:500}
+  .act{position:relative;padding:0 0 20px 20px;border-left:1px solid var(--line)}
+  .act:last-child{border-left-color:transparent;padding-bottom:2px}
+  .act::before{content:"";position:absolute;left:-5px;top:2px;width:9px;height:9px;border-radius:50%;background:var(--crimson);box-shadow:0 0 0 3px var(--paper)}
+  .act .when{font-family:var(--mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--crimson);font-weight:600;display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+  .act .act-note{margin-top:7px;font-size:14px;color:var(--ink-soft);white-space:pre-wrap;line-height:1.5}
+  .act .act-tools{display:inline-flex;gap:2px;margin-left:auto}
+  .act .act-tools button{border:none;background:none;color:var(--muted);cursor:pointer;font-size:12px;padding:2px 6px;font-family:var(--mono)}
+  .act .act-tools button:hover{color:var(--crimson);background:var(--crimson-soft)}
+  .no-act{font-family:var(--mono);font-size:12px;color:var(--muted);padding:10px 0}
+
   .settings-group{margin-bottom:22px;padding-bottom:18px;border-bottom:1px solid var(--line)}
   .settings-group:last-of-type{border-bottom:none}
   .settings-group h3{font-family:var(--serif);font-size:16px;margin:0 0 3px;font-weight:700}
@@ -136,8 +130,7 @@
     .stats{grid-template-columns:repeat(2,1fr)}
     .stat:nth-child(2){border-right:none}
     .stat:nth-child(1),.stat:nth-child(2){border-bottom:1px solid var(--line)}
-    .wrap{padding:18px}
-    .wordmark{font-size:20px}
+    .wrap{padding:18px} .wordmark{font-size:20px}
   }
 </style>
 </head>
@@ -146,147 +139,103 @@
 <header>
   <div class="brand">
     <svg class="reticle" width="30" height="30" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round">
-      <circle cx="50" cy="50" r="21"/>
-      <circle cx="50" cy="50" r="7" fill="currentColor" stroke="none"/>
+      <circle cx="50" cy="50" r="21"/><circle cx="50" cy="50" r="7" fill="currentColor" stroke="none"/>
       <line x1="50" y1="5" x2="50" y2="24"/><line x1="50" y1="76" x2="50" y2="95"/>
       <line x1="5" y1="50" x2="24" y2="50"/><line x1="76" y1="50" x2="95" y2="50"/>
     </svg>
-    <div>
-      <div class="wordmark">Contactos</div>
-      <div class="tagline">Registro de ventas · Madrid</div>
-    </div>
+    <div><div class="wordmark">Contactos</div><div class="tagline">Registro de ventas · Madrid</div></div>
   </div>
   <div class="spacer"></div>
   <button class="btn-icon" id="settingsBtn" title="Ajustes de listas">⚙ Ajustes</button>
   <button class="btn-ghost" id="exportBtn">↓ Exportar CSV</button>
-  <button class="btn-primary" id="newBtn">＋ Nuevo contacto</button>
+  <button class="btn-primary" id="newBtn">＋ Nuevo cliente</button>
 </header>
 
 <div class="wrap">
   <div class="stats" id="stats"></div>
-
   <div class="toolbar">
     <input class="search" id="search" placeholder="Buscar por nombre, zona o notas…">
     <select class="filter" id="filterStatus"></select>
     <select class="filter" id="filterMethod"></select>
   </div>
-
   <div class="list" id="list"></div>
 </div>
 
-<!-- Contact modal -->
-<div class="backdrop" id="backdrop">
+<!-- Client (create/edit) modal -->
+<div class="backdrop" id="clientBackdrop">
   <div class="modal">
-    <header>
-      <h2 id="modalTitle">Nuevo contacto<span class="sub" id="modalSub">Registro de contacto</span></h2>
-      <button class="x" id="closeBtn">&times;</button>
-    </header>
-    <form id="form">
-      <input type="hidden" id="id">
-      <div class="field">
-        <label class="label">Nombre del sitio *</label>
-        <input id="name" required placeholder="Café Central, Hotel Riu…">
-      </div>
+    <header><h2 id="clientTitle">Nuevo cliente<span class="sub" id="clientSub">Datos del contacto</span></h2><button class="x" id="closeClient">&times;</button></header>
+    <form id="clientForm">
+      <input type="hidden" id="cId">
+      <div class="field"><label class="label">Nombre del sitio *</label><input id="cName" required placeholder="Café Central, Hotel Riu…"></div>
       <div class="field two">
-        <div>
-          <label class="label">Tipo de sitio</label>
-          <input id="placeType" list="placeTypeList" placeholder="Restaurante, hotel…">
-          <datalist id="placeTypeList"></datalist>
-        </div>
-        <div>
-          <label class="label">Zona / barrio</label>
-          <input id="location" list="zoneList" placeholder="Malasaña, Chamberí…">
-          <datalist id="zoneList"></datalist>
-        </div>
+        <div><label class="label">Tipo de sitio</label><input id="cPlaceType" list="placeTypeList" placeholder="Restaurante, hotel…"><datalist id="placeTypeList"></datalist></div>
+        <div><label class="label">Zona / barrio</label><input id="cLocation" list="zoneList" placeholder="Malasaña…"><datalist id="zoneList"></datalist></div>
       </div>
+      <div class="field"><label class="label">Contacto (teléfono / persona)</label><input id="cPhone" placeholder="Ana · 600 000 000"></div>
       <div class="field two">
-        <div>
-          <label class="label">Canal de contacto</label>
-          <select id="method"></select>
+        <div><label class="label">Estado</label><select id="cStatus"></select></div>
+        <div><label class="label">Próximo seguimiento</label><input type="date" id="cFollowup"></div>
+      </div>
+      <div id="firstActivity">
+        <div class="divider">Primer contacto</div>
+        <div class="field two">
+          <div><label class="label">Fecha</label><input type="date" id="cActDate"></div>
+          <div><label class="label">Canal</label><select id="cActMethod"></select></div>
         </div>
-        <div>
-          <label class="label">Estado</label>
-          <select id="status"></select>
-        </div>
+        <div class="field"><label class="label">¿Qué se habló? / Notas</label><textarea id="cActNotes" placeholder="Primer contacto: interesados en fotos para redes…"></textarea></div>
       </div>
-      <div class="field two">
-        <div>
-          <label class="label">Fecha de contacto</label>
-          <input type="date" id="date">
-        </div>
-        <div>
-          <label class="label">Próximo seguimiento</label>
-          <input type="date" id="followup">
-        </div>
-      </div>
-      <div class="field">
-        <label class="label">¿Qué se habló? / Notas</label>
-        <textarea id="notes" placeholder="Hablé con la encargada, pedir presupuesto la semana que viene…"></textarea>
-      </div>
-      <div class="field">
-        <label class="label">Contacto (teléfono / persona)</label>
-        <input id="phone" placeholder="Ana · 600 000 000">
-      </div>
-      <div class="modal-actions">
-        <button type="button" class="btn-ghost" id="deleteBtn" style="color:var(--crimson);visibility:hidden">Eliminar</button>
-        <button type="submit" class="btn-primary">Guardar</button>
-      </div>
+      <div class="modal-actions"><span></span><button type="submit" class="btn-primary">Guardar cliente</button></div>
     </form>
+  </div>
+</div>
+
+<!-- Detail / timeline modal -->
+<div class="backdrop" id="detailBackdrop">
+  <div class="modal wide">
+    <header><h2 id="detailName">Cliente<span class="sub" id="detailSub"></span></h2><button class="x" id="closeDetail">&times;</button></header>
+    <div class="body">
+      <div class="client-meta" id="detailMeta"></div>
+      <div class="detail-actions">
+        <button class="btn-primary" id="addActBtn">＋ Añadir actividad</button>
+        <button class="btn-ghost" id="editClientBtn">✎ Editar datos</button>
+        <button class="btn-ghost" id="delClientBtn" style="color:var(--crimson)">Eliminar cliente</button>
+      </div>
+
+      <div class="act-form" id="actForm" style="display:none">
+        <input type="hidden" id="aId">
+        <div class="field two">
+          <div><label class="label">Fecha</label><input type="date" id="aDate"></div>
+          <div><label class="label">Canal</label><select id="aMethod"></select></div>
+        </div>
+        <div class="field"><label class="label">¿Qué se habló? / Notas</label><textarea id="aNotes" placeholder="Detalle del contacto…"></textarea></div>
+        <div class="field two">
+          <div><label class="label">Actualizar estado a</label><select id="aStatus"></select></div>
+          <div><label class="label">Próximo seguimiento</label><input type="date" id="aFollowup"></div>
+        </div>
+        <div class="modal-actions"><button type="button" class="btn-ghost" id="cancelAct">Cancelar</button><button type="button" class="btn-primary" id="saveAct">Guardar actividad</button></div>
+      </div>
+
+      <div class="tl-title">Historial de actividad</div>
+      <div class="timeline" id="timeline"></div>
+    </div>
   </div>
 </div>
 
 <!-- Settings modal -->
 <div class="backdrop" id="settingsBackdrop">
   <div class="modal">
-    <header>
-      <h2>Ajustes de listas<span class="sub">Personalizar desplegables</span></h2>
-      <button class="x" id="closeSettings">&times;</button>
-    </header>
+    <header><h2>Ajustes de listas<span class="sub">Personalizar desplegables</span></h2><button class="x" id="closeSettings">&times;</button></header>
     <div class="body">
-      <div class="settings-group">
-        <h3>Canales de contacto</h3>
-        <p class="hint">Cómo contactaste el sitio.</p>
-        <div id="methodsList"></div>
-        <div class="add-row">
-          <input id="addMethod" placeholder="Añadir canal (ej: Instagram)…">
-          <button class="btn-ghost" data-add="methods">＋ Añadir</button>
-        </div>
-      </div>
-
-      <div class="settings-group">
-        <h3>Estados</h3>
-        <p class="hint">Fase de la conversación · color a la izquierda.</p>
-        <div id="statusesList"></div>
-        <div class="add-row">
-          <input id="addStatus" placeholder="Añadir estado (ej: Presupuesto enviado)…">
-          <button class="btn-ghost" data-add="statuses">＋ Añadir</button>
-        </div>
-      </div>
-
-      <div class="settings-group">
-        <h3>Tipos de sitio</h3>
-        <p class="hint">Sugerencias al escribir el tipo.</p>
-        <div id="placeTypesList"></div>
-        <div class="add-row">
-          <input id="addPlaceType" placeholder="Añadir tipo…">
-          <button class="btn-ghost" data-add="placeTypes">＋ Añadir</button>
-        </div>
-      </div>
-
-      <div class="settings-group">
-        <h3>Zonas / barrios</h3>
-        <p class="hint">Sugerencias de zona al crear un contacto.</p>
-        <div id="zonesList"></div>
-        <div class="add-row">
-          <input id="addZone" placeholder="Añadir zona…">
-          <button class="btn-ghost" data-add="zones">＋ Añadir</button>
-        </div>
-      </div>
-
-      <div class="modal-actions">
-        <button type="button" class="btn-ghost" id="resetSettings" style="color:var(--crimson)">Restaurar por defecto</button>
-        <button type="button" class="btn-primary" id="doneSettings">Hecho</button>
-      </div>
+      <div class="settings-group"><h3>Canales de contacto</h3><p class="hint">Cómo contactaste el sitio.</p><div id="methodsList"></div>
+        <div class="add-row"><input id="addMethod" placeholder="Añadir canal (ej: Instagram)…"><button class="btn-ghost" data-add="methods">＋ Añadir</button></div></div>
+      <div class="settings-group"><h3>Estados</h3><p class="hint">Fase de la conversación · color a la izquierda.</p><div id="statusesList"></div>
+        <div class="add-row"><input id="addStatus" placeholder="Añadir estado…"><button class="btn-ghost" data-add="statuses">＋ Añadir</button></div></div>
+      <div class="settings-group"><h3>Tipos de sitio</h3><p class="hint">Sugerencias al escribir el tipo.</p><div id="placeTypesList"></div>
+        <div class="add-row"><input id="addPlaceType" placeholder="Añadir tipo…"><button class="btn-ghost" data-add="placeTypes">＋ Añadir</button></div></div>
+      <div class="settings-group"><h3>Zonas / barrios</h3><p class="hint">Sugerencias de zona.</p><div id="zonesList"></div>
+        <div class="add-row"><input id="addZone" placeholder="Añadir zona…"><button class="btn-ghost" data-add="zones">＋ Añadir</button></div></div>
+      <div class="modal-actions"><button type="button" class="btn-ghost" id="resetSettings" style="color:var(--crimson)">Restaurar por defecto</button><button type="button" class="btn-primary" id="doneSettings">Hecho</button></div>
     </div>
   </div>
 </div>
@@ -294,16 +243,9 @@
 <script>
 const KEY='crm_fotografia_v1';
 const CFG_KEY='crm_fotografia_cfg_v1';
-
 const DEFAULT_CFG={
   methods:['Visita','Llamada','WhatsApp','Mensaje / DM','Email'],
-  statuses:[
-    {name:'Nuevo',color:'#3a5a6b'},
-    {name:'Seguimiento',color:'#b8862f'},
-    {name:'Interesado',color:'#4d7c3f'},
-    {name:'No interesado',color:'#9e2b25'},
-    {name:'Cerrado',color:'#1b1712'}
-  ],
+  statuses:[{name:'Nuevo',color:'#3a5a6b'},{name:'Seguimiento',color:'#b8862f'},{name:'Interesado',color:'#4d7c3f'},{name:'No interesado',color:'#9e2b25'},{name:'Cerrado',color:'#1b1712'}],
   placeTypes:['Restaurante','Cafetería','Hotel','Tienda','Galería','Oficina','Gimnasio'],
   zones:['Centro','Malasaña','Chamberí','Salamanca','Chueca','La Latina','Retiro']
 };
@@ -311,61 +253,68 @@ const METHOD_ICON={'Visita':'🚶','Llamada':'📞','WhatsApp':'💬','Mensaje /
 
 let data=JSON.parse(localStorage.getItem(KEY)||'[]');
 let cfg=JSON.parse(localStorage.getItem(CFG_KEY)||'null')||structuredClone(DEFAULT_CFG);
+let openClientId=null;
 
 const $=s=>document.querySelector(s);
 const save=()=>localStorage.setItem(KEY,JSON.stringify(data));
 const saveCfg=()=>localStorage.setItem(CFG_KEY,JSON.stringify(cfg));
 const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
 const esc=s=>(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const today=()=>new Date().toISOString().slice(0,10);
+const statusColor=n=>{const s=cfg.statuses.find(x=>x.name===n);return s?s.color:'#8b8069';};
+const fmtDate=d=>{if(!d)return'';const[y,m,day]=d.split('-');return `${day}/${m}/${y}`;};
+const daysUntil=d=>{if(!d)return null;const t=new Date();t.setHours(0,0,0,0);return Math.round((new Date(d)-t)/86400000);};
+const sortedActs=c=>[...(c.activities||[])].sort((a,b)=>(b.date||'').localeCompare(a.date||''));
+const lastAct=c=>sortedActs(c)[0];
 
-function statusColor(name){ const s=cfg.statuses.find(x=>x.name===name); return s?s.color:'#8b8069'; }
-function fmtDate(d){ if(!d)return''; const[y,m,day]=d.split('-'); return `${day}/${m}/${y}`; }
-function daysUntil(d){ if(!d)return null; const t=new Date();t.setHours(0,0,0,0); return Math.round((new Date(d)-t)/86400000); }
+/* migrate old flat records -> client with activities[] */
+function migrate(c){
+  if(Array.isArray(c.activities))return c;
+  return {id:c.id||uid(),name:c.name,placeType:c.placeType,location:c.location,phone:c.phone,
+    status:c.status||'Nuevo',followup:c.followup||'',
+    activities:(c.date||c.notes||c.method)?[{id:uid(),date:c.date||today(),method:c.method||cfg.methods[0],notes:c.notes||''}]:[]};
+}
+data=data.map(migrate); save();
 
 function fillControls(){
-  const curMethod=$('#method').value,curStatus=$('#status').value;
-  $('#method').innerHTML=cfg.methods.map(m=>`<option>${esc(m)}</option>`).join('');
-  $('#status').innerHTML=cfg.statuses.map(s=>`<option>${esc(s.name)}</option>`).join('');
-  if(cfg.methods.includes(curMethod))$('#method').value=curMethod;
-  if(cfg.statuses.some(s=>s.name===curStatus))$('#status').value=curStatus;
-  $('#filterStatus').innerHTML='<option value="">Todos los estados</option>'+cfg.statuses.map(s=>`<option>${esc(s.name)}</option>`).join('');
-  $('#filterMethod').innerHTML='<option value="">Todos los canales</option>'+cfg.methods.map(m=>`<option>${esc(m)}</option>`).join('');
+  const opt=(arr)=>arr.map(v=>`<option>${esc(v)}</option>`).join('');
+  const mOpts=opt(cfg.methods), sOpts=cfg.statuses.map(s=>`<option>${esc(s.name)}</option>`).join('');
+  ['#cActMethod','#aMethod'].forEach(id=>{const el=$(id);const v=el.value;el.innerHTML=mOpts;if(cfg.methods.includes(v))el.value=v;});
+  ['#cStatus','#aStatus'].forEach(id=>{const el=$(id);const v=el.value;el.innerHTML=sOpts;if(cfg.statuses.some(s=>s.name===v))el.value=v;});
+  $('#filterMethod').innerHTML='<option value="">Todos los canales</option>'+mOpts;
+  $('#filterStatus').innerHTML='<option value="">Todos los estados</option>'+sOpts;
   $('#placeTypeList').innerHTML=cfg.placeTypes.map(t=>`<option value="${esc(t)}">`).join('');
   $('#zoneList').innerHTML=cfg.zones.map(z=>`<option value="${esc(z)}">`).join('');
 }
 
 function render(){
-  const q=$('#search').value.toLowerCase().trim();
-  const fs=$('#filterStatus').value,fm=$('#filterMethod').value;
+  const q=$('#search').value.toLowerCase().trim(), fs=$('#filterStatus').value, fm=$('#filterMethod').value;
   let items=data.filter(c=>{
     if(fs&&c.status!==fs)return false;
-    if(fm&&c.method!==fm)return false;
-    if(q){const hay=(c.name+' '+c.location+' '+c.placeType+' '+c.notes+' '+c.phone).toLowerCase(); if(!hay.includes(q))return false;}
+    if(fm&&!(c.activities||[]).some(a=>a.method===fm))return false;
+    if(q){const hay=(c.name+' '+c.location+' '+c.placeType+' '+c.phone+' '+(c.activities||[]).map(a=>a.notes).join(' ')).toLowerCase();if(!hay.includes(q))return false;}
     return true;
   });
   items.sort((a,b)=>{
     const da=daysUntil(a.followup),db=daysUntil(b.followup);
-    if(da!==null&&db!==null)return da-db;
-    if(da!==null)return -1; if(db!==null)return 1;
-    return (b.date||'').localeCompare(a.date||'');
+    if(da!==null&&db!==null&&da!==db)return da-db;
+    if(da!==null&&db===null)return -1; if(db!==null&&da===null)return 1;
+    return ((lastAct(b)||{}).date||'').localeCompare((lastAct(a)||{}).date||'');
   });
 
   const total=data.length;
-  const interesados=data.filter(c=>c.status==='Interesado').length;
-  const cerrados=data.filter(c=>c.status==='Cerrado').length;
+  const interes=data.filter(c=>c.status==='Interesado').length;
+  const cerr=data.filter(c=>c.status==='Cerrado').length;
   const pend=data.filter(c=>{const d=daysUntil(c.followup);return d!==null&&d<=3&&c.status!=='Cerrado'&&c.status!=='No interesado';}).length;
   $('#stats').innerHTML=`
-    <div class="stat"><div class="n">${total}</div><div class="l label">Sitios contactados</div></div>
-    <div class="stat"><div class="n" style="color:#4d7c3f">${interesados}</div><div class="l label">Interesados</div></div>
+    <div class="stat"><div class="n">${total}</div><div class="l label">Clientes</div></div>
+    <div class="stat"><div class="n" style="color:#4d7c3f">${interes}</div><div class="l label">Interesados</div></div>
     <div class="stat hot"><div class="n" style="color:var(--crimson)">${pend}</div><div class="l label">Seguimiento pronto</div></div>
-    <div class="stat"><div class="n">${cerrados}</div><div class="l label">Cerrados</div></div>`;
+    <div class="stat"><div class="n">${cerr}</div><div class="l label">Cerrados</div></div>`;
 
-  if(items.length===0){
-    $('#list').innerHTML=`<div class="empty">${total===0?'AÚN NO HAY CONTACTOS · PULSA ＋ NUEVO CONTACTO':'NINGÚN RESULTADO CON ESE FILTRO'}</div>`;
-    return;
-  }
+  if(items.length===0){$('#list').innerHTML=`<div class="empty">${total===0?'AÚN NO HAY CLIENTES · PULSA ＋ NUEVO CLIENTE':'NINGÚN RESULTADO CON ESE FILTRO'}</div>`;return;}
   $('#list').innerHTML=items.map(c=>{
-    const col=statusColor(c.status);
+    const col=statusColor(c.status), la=lastAct(c), n=(c.activities||[]).length;
     const d=daysUntil(c.followup);
     let fu='';
     if(c.followup&&c.status!=='Cerrado'&&c.status!=='No interesado'){
@@ -373,125 +322,187 @@ function render(){
       const txt=d<0?`⏰ Vencido (${fmtDate(c.followup)})`:d===0?'⏰ Seguir hoy':d===1?'⏰ Seguir mañana':`Seguir ${fmtDate(c.followup)}`;
       fu=`<div class="followup ${cls}">${txt}</div>`;
     }
-    return `<div class="contact" style="border-top-color:${col}">
+    return `<div class="contact" style="border-top-color:${col}" onclick="openDetail('${c.id}')">
       <div class="top">
-        <div>
-          <div class="name">${esc(c.name)}</div>
-          ${c.placeType?`<div class="place-type label">${esc(c.placeType)}</div>`:''}
-        </div>
+        <div><div class="name">${esc(c.name)}</div>${c.placeType?`<div class="place-type label">${esc(c.placeType)}</div>`:''}</div>
         <span class="chip" style="color:${col}">${esc(c.status)}</span>
       </div>
       <div class="row">
-        <span class="chip-method chip">${METHOD_ICON[c.method]||'•'} ${esc(c.method)}</span>
-        ${c.date?`<span>▪ ${fmtDate(c.date)}</span>`:''}
-        ${c.location?`<span>▪ ${esc(c.location)}</span>`:''}
+        ${c.location?`<span>📍 ${esc(c.location)}</span>`:''}
+        <span>▪ ${n} ${n===1?'actividad':'actividades'}</span>
+        ${la&&la.date?`<span>▪ últ. ${fmtDate(la.date)}</span>`:''}
       </div>
-      ${c.phone?`<div class="row">▪ ${esc(c.phone)}</div>`:''}
-      ${c.notes?`<div class="notes">${esc(c.notes)}</div>`:''}
+      ${la&&la.notes?`<div class="last-note">${la.method?METHOD_ICON[la.method]||'•':''} ${esc(la.notes)}</div>`:''}
       ${fu}
-      <div class="card-actions"><button class="btn-ghost" onclick="edit('${c.id}')">✎ Editar</button></div>
+      <div class="see">Ver historial ▸</div>
     </div>`;
   }).join('');
 }
 
-function openModal(){ $('#backdrop').classList.add('open'); }
-function closeModal(){ $('#backdrop').classList.remove('open'); $('#form').reset(); $('#id').value=''; }
-function newContact(){
-  closeModal(); fillControls();
-  $('#modalTitle').childNodes[0].nodeValue='Nuevo contacto';
-  $('#modalSub').textContent='Registro de contacto';
-  $('#deleteBtn').style.visibility='hidden';
-  $('#date').value=new Date().toISOString().slice(0,10);
-  openModal(); setTimeout(()=>$('#name').focus(),50);
+/* ---- Client create / edit ---- */
+function openClient(id){
+  fillControls();
+  if(id){
+    const c=data.find(x=>x.id===id);
+    $('#clientTitle').childNodes[0].nodeValue='Editar datos';
+    $('#clientSub').textContent=c.name;
+    $('#cId').value=c.id;$('#cName').value=c.name;$('#cPlaceType').value=c.placeType||'';
+    $('#cLocation').value=c.location||'';$('#cPhone').value=c.phone||'';$('#cStatus').value=c.status;$('#cFollowup').value=c.followup||'';
+    $('#firstActivity').style.display='none';
+  }else{
+    $('#clientForm').reset();$('#cId').value='';
+    $('#clientTitle').childNodes[0].nodeValue='Nuevo cliente';
+    $('#clientSub').textContent='Datos del contacto';
+    $('#cStatus').value='Nuevo';$('#cActDate').value=today();
+    $('#firstActivity').style.display='block';
+  }
+  $('#clientBackdrop').classList.add('open');
+  setTimeout(()=>$('#cName').focus(),50);
 }
-window.edit=function(id){
+function closeClient(){$('#clientBackdrop').classList.remove('open');}
+$('#clientForm').addEventListener('submit',e=>{
+  e.preventDefault();
+  const id=$('#cId').value;
+  if(id){
+    const c=data.find(x=>x.id===id);
+    Object.assign(c,{name:$('#cName').value.trim(),placeType:$('#cPlaceType').value.trim(),location:$('#cLocation').value.trim(),
+      phone:$('#cPhone').value.trim(),status:$('#cStatus').value,followup:$('#cFollowup').value});
+  }else{
+    const acts=[];
+    if($('#cActNotes').value.trim()||$('#cActDate').value)acts.push({id:uid(),date:$('#cActDate').value||today(),method:$('#cActMethod').value,notes:$('#cActNotes').value.trim()});
+    data.unshift({id:uid(),name:$('#cName').value.trim(),placeType:$('#cPlaceType').value.trim(),location:$('#cLocation').value.trim(),
+      phone:$('#cPhone').value.trim(),status:$('#cStatus').value,followup:$('#cFollowup').value,activities:acts});
+  }
+  save();closeClient();render();
+});
+
+/* ---- Detail / timeline ---- */
+window.openDetail=function(id){
+  openClientId=id;
   const c=data.find(x=>x.id===id); if(!c)return;
   fillControls();
-  $('#modalTitle').childNodes[0].nodeValue='Editar contacto';
-  $('#modalSub').textContent=c.name;
-  $('#id').value=c.id; $('#name').value=c.name; $('#placeType').value=c.placeType;
-  $('#location').value=c.location; $('#method').value=c.method; $('#status').value=c.status;
-  $('#date').value=c.date; $('#followup').value=c.followup; $('#notes').value=c.notes; $('#phone').value=c.phone;
-  $('#deleteBtn').style.visibility='visible'; openModal();
+  $('#detailName').childNodes[0].nodeValue=c.name;
+  $('#detailSub').textContent=(c.placeType||'Cliente');
+  const col=statusColor(c.status);
+  const d=daysUntil(c.followup);
+  let fu='';
+  if(c.followup&&c.status!=='Cerrado'&&c.status!=='No interesado'){
+    const cls=d<0?'due':d<=3?'soon':'';const txt=d<0?`⏰ Vencido ${fmtDate(c.followup)}`:d===0?'⏰ Seguir hoy':`📅 Seguir ${fmtDate(c.followup)}`;
+    fu=`<span class="followup ${cls}">${txt}</span>`;
+  }
+  $('#detailMeta').innerHTML=`<span class="chip" style="color:${col}">${esc(c.status)}</span>
+    ${c.location?`<span>📍 ${esc(c.location)}</span>`:''}${c.phone?`<span>👤 ${esc(c.phone)}</span>`:''}${fu}`;
+  $('#actForm').style.display='none';
+  renderTimeline(c);
+  $('#detailBackdrop').classList.add('open');
 };
-$('#form').addEventListener('submit',e=>{
-  e.preventDefault();
-  const id=$('#id').value;
-  const rec={id:id||uid(),name:$('#name').value.trim(),placeType:$('#placeType').value.trim(),
-    location:$('#location').value.trim(),method:$('#method').value,status:$('#status').value,
-    date:$('#date').value,followup:$('#followup').value,notes:$('#notes').value.trim(),phone:$('#phone').value.trim()};
-  if(id)data=data.map(x=>x.id===id?rec:x); else data.unshift(rec);
-  save(); closeModal(); render();
-});
-$('#deleteBtn').addEventListener('click',()=>{
-  const id=$('#id').value;
-  if(id&&confirm('¿Eliminar este contacto?')){ data=data.filter(x=>x.id!==id); save(); closeModal(); render(); }
-});
-
-function openSettings(){ renderSettings(); $('#settingsBackdrop').classList.add('open'); }
-function closeSettings(){ $('#settingsBackdrop').classList.remove('open'); }
-function renderSettings(){
-  [['methods','methodsList'],['placeTypes','placeTypesList'],['zones','zonesList']].forEach(([key,el])=>{
-    $('#'+el).innerHTML=cfg[key].map((v,i)=>`
-      <div class="opt-row">
-        <input type="text" value="${esc(v)}" oninput="editItem('${key}',${i},this.value)">
-        <button class="del" title="Borrar" onclick="delItem('${key}',${i})">✕</button>
-      </div>`).join('');
-  });
-  $('#statusesList').innerHTML=cfg.statuses.map((s,i)=>`
-    <div class="opt-row">
-      <input type="color" value="${s.color}" oninput="editStatusColor(${i},this.value)">
-      <input type="text" value="${esc(s.name)}" oninput="editStatusName(${i},this.value)">
-      <button class="del" title="Borrar" onclick="delItem('statuses',${i})">✕</button>
+function renderTimeline(c){
+  const acts=sortedActs(c);
+  if(acts.length===0){$('#timeline').innerHTML='<div class="no-act">Sin actividades todavía. Pulsa «＋ Añadir actividad».</div>';return;}
+  $('#timeline').innerHTML=acts.map(a=>`
+    <div class="act">
+      <div class="when">${fmtDate(a.date)||'sin fecha'} <span class="chip chip-method">${METHOD_ICON[a.method]||'•'} ${esc(a.method||'')}</span>
+        <span class="act-tools"><button title="Editar" onclick="editAct('${a.id}')">✎</button><button title="Borrar" onclick="delAct('${a.id}')">✕</button></span></div>
+      ${a.notes?`<div class="act-note">${esc(a.notes)}</div>`:''}
     </div>`).join('');
 }
-window.editItem=(key,i,val)=>{ cfg[key][i]=val; saveCfg(); fillControls(); render(); };
-window.editStatusName=(i,val)=>{ cfg.statuses[i].name=val; saveCfg(); fillControls(); render(); };
-window.editStatusColor=(i,val)=>{ cfg.statuses[i].color=val; saveCfg(); render(); };
-window.delItem=(key,i)=>{
-  if(cfg[key].length<=1){ alert('Debe quedar al menos una opción.'); return; }
-  cfg[key].splice(i,1); saveCfg(); renderSettings(); fillControls(); render();
+function closeDetail(){$('#detailBackdrop').classList.remove('open');openClientId=null;}
+
+function showActForm(act){
+  const c=data.find(x=>x.id===openClientId);
+  fillControls();
+  $('#aId').value=act?act.id:'';
+  $('#aDate').value=act?act.date:today();
+  $('#aMethod').value=act?act.method:cfg.methods[0];
+  $('#aNotes').value=act?act.notes:'';
+  $('#aStatus').value=c.status;
+  $('#aFollowup').value=c.followup||'';
+  $('#actForm').style.display='block';
+  $('#actForm').scrollIntoView({behavior:'smooth',block:'nearest'});
+  setTimeout(()=>$('#aNotes').focus(),50);
+}
+$('#addActBtn').addEventListener('click',()=>showActForm(null));
+window.editAct=id=>{const c=data.find(x=>x.id===openClientId);showActForm(c.activities.find(a=>a.id===id));};
+window.delAct=id=>{
+  if(!confirm('¿Borrar esta actividad?'))return;
+  const c=data.find(x=>x.id===openClientId);
+  c.activities=c.activities.filter(a=>a.id!==id);save();renderTimeline(c);render();
 };
-document.querySelectorAll('[data-add]').forEach(btn=>{
-  btn.addEventListener('click',()=>{
-    const key=btn.dataset.add;
-    const inp=$({methods:'#addMethod',statuses:'#addStatus',placeTypes:'#addPlaceType',zones:'#addZone'}[key]);
-    const val=inp.value.trim(); if(!val)return;
-    if(key==='statuses')cfg.statuses.push({name:val,color:'#8b8069'}); else cfg[key].push(val);
-    inp.value=''; saveCfg(); renderSettings(); fillControls(); render();
+$('#cancelAct').addEventListener('click',()=>{$('#actForm').style.display='none';});
+$('#saveAct').addEventListener('click',()=>{
+  const c=data.find(x=>x.id===openClientId);
+  const aid=$('#aId').value;
+  const payload={date:$('#aDate').value||today(),method:$('#aMethod').value,notes:$('#aNotes').value.trim()};
+  if(aid){Object.assign(c.activities.find(a=>a.id===aid),payload);}
+  else{c.activities.push({id:uid(),...payload});}
+  c.status=$('#aStatus').value; c.followup=$('#aFollowup').value;
+  save();$('#actForm').style.display='none';openDetail(openClientId);render();
+});
+$('#editClientBtn').addEventListener('click',()=>openClient(openClientId));
+$('#delClientBtn').addEventListener('click',()=>{
+  const c=data.find(x=>x.id===openClientId);
+  if(confirm(`¿Eliminar «${c.name}» y todo su historial?`)){data=data.filter(x=>x.id!==openClientId);save();closeDetail();render();}
+});
+
+/* ---- Settings ---- */
+function openSettings(){renderSettings();$('#settingsBackdrop').classList.add('open');}
+function closeSettings(){$('#settingsBackdrop').classList.remove('open');}
+function renderSettings(){
+  [['methods','methodsList'],['placeTypes','placeTypesList'],['zones','zonesList']].forEach(([k,el])=>{
+    $('#'+el).innerHTML=cfg[k].map((v,i)=>`<div class="opt-row"><input type="text" value="${esc(v)}" oninput="editItem('${k}',${i},this.value)"><button class="del" onclick="delItem('${k}',${i})">✕</button></div>`).join('');
   });
-});
-$('#resetSettings').addEventListener('click',()=>{
-  if(confirm('¿Restaurar las listas a los valores originales? (No borra tus contactos.)')){
-    cfg=structuredClone(DEFAULT_CFG); saveCfg(); renderSettings(); fillControls(); render();
-  }
-});
+  $('#statusesList').innerHTML=cfg.statuses.map((s,i)=>`<div class="opt-row"><input type="color" value="${s.color}" oninput="editStatusColor(${i},this.value)"><input type="text" value="${esc(s.name)}" oninput="editStatusName(${i},this.value)"><button class="del" onclick="delItem('statuses',${i})">✕</button></div>`).join('');
+}
+window.editItem=(k,i,v)=>{cfg[k][i]=v;saveCfg();fillControls();render();};
+window.editStatusName=(i,v)=>{cfg.statuses[i].name=v;saveCfg();fillControls();render();};
+window.editStatusColor=(i,v)=>{cfg.statuses[i].color=v;saveCfg();render();};
+window.delItem=(k,i)=>{if(cfg[k].length<=1){alert('Debe quedar al menos una opción.');return;}cfg[k].splice(i,1);saveCfg();renderSettings();fillControls();render();};
+document.querySelectorAll('[data-add]').forEach(btn=>btn.addEventListener('click',()=>{
+  const k=btn.dataset.add,inp=$({methods:'#addMethod',statuses:'#addStatus',placeTypes:'#addPlaceType',zones:'#addZone'}[k]),v=inp.value.trim();
+  if(!v)return; if(k==='statuses')cfg.statuses.push({name:v,color:'#8b8069'});else cfg[k].push(v);
+  inp.value='';saveCfg();renderSettings();fillControls();render();
+}));
+$('#resetSettings').addEventListener('click',()=>{if(confirm('¿Restaurar las listas a los valores originales? (No borra tus clientes.)')){cfg=structuredClone(DEFAULT_CFG);saveCfg();renderSettings();fillControls();render();}});
 
+/* ---- Export: one row per activity ---- */
 $('#exportBtn').addEventListener('click',()=>{
-  if(data.length===0){ alert('No hay datos para exportar.'); return; }
-  const cols=['name','placeType','location','method','status','date','followup','phone','notes'];
-  const head=['Nombre','Tipo','Zona','Canal','Estado','Fecha','Seguimiento','Contacto','Notas'];
-  const csv=[head.join(',')].concat(data.map(c=>cols.map(k=>`"${(c[k]||'').replace(/"/g,'""')}"`).join(','))).join('\n');
-  const blob=new Blob(['﻿'+csv],{type:'text/csv;charset=utf-8'});
-  const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='contactos-crm.csv'; a.click();
+  if(data.length===0){alert('No hay datos para exportar.');return;}
+  const head=['Cliente','Tipo','Zona','Estado','Contacto','Fecha','Canal','Notas'];
+  const rows=[head.join(',')];
+  data.forEach(c=>{
+    const acts=sortedActs(c);
+    if(acts.length===0)acts.push({date:'',method:'',notes:''});
+    acts.forEach(a=>{
+      rows.push([c.name,c.placeType,c.location,c.status,c.phone,a.date,a.method,a.notes].map(x=>`"${(x||'').replace(/"/g,'""')}"`).join(','));
+    });
+  });
+  const blob=new Blob(['﻿'+rows.join('\n')],{type:'text/csv;charset=utf-8'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='contactos-crm.csv';a.click();
 });
 
-$('#newBtn').addEventListener('click',newContact);
-$('#closeBtn').addEventListener('click',closeModal);
+/* ---- wire up ---- */
+$('#newBtn').addEventListener('click',()=>openClient(null));
+$('#closeClient').addEventListener('click',closeClient);
+$('#closeDetail').addEventListener('click',closeDetail);
 $('#settingsBtn').addEventListener('click',openSettings);
 $('#closeSettings').addEventListener('click',closeSettings);
 $('#doneSettings').addEventListener('click',closeSettings);
-$('#backdrop').addEventListener('click',e=>{ if(e.target===$('#backdrop'))closeModal(); });
-$('#settingsBackdrop').addEventListener('click',e=>{ if(e.target===$('#settingsBackdrop'))closeSettings(); });
+[['#clientBackdrop',closeClient],['#detailBackdrop',closeDetail],['#settingsBackdrop',closeSettings]].forEach(([sel,fn])=>{$(sel).addEventListener('click',e=>{if(e.target===$(sel))fn();});});
 $('#search').addEventListener('input',render);
 $('#filterStatus').addEventListener('change',render);
 $('#filterMethod').addEventListener('change',render);
-document.addEventListener('keydown',e=>{ if(e.key==='Escape'){closeModal();closeSettings();} });
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeClient();closeDetail();closeSettings();}});
 
+/* ---- seed & boot ---- */
 if(data.length===0){
-  data=[{id:uid(),name:'Café Ejemplo',placeType:'Cafetería',location:'Malasaña',method:'Visita',status:'Seguimiento',
-    date:new Date().toISOString().slice(0,10),followup:new Date(Date.now()+2*86400000).toISOString().slice(0,10),
-    notes:'Hablé con la encargada, le interesan fotos de producto para redes. Volver con presupuesto.',phone:'Ana · 600 123 456'}];
+  const t=n=>new Date(Date.now()-n*86400000).toISOString().slice(0,10);
+  data=[{id:uid(),name:'Café Ejemplo',placeType:'Cafetería',location:'Malasaña',phone:'Ana · 600 123 456',status:'Interesado',
+    followup:new Date(Date.now()+2*86400000).toISOString().slice(0,10),
+    activities:[
+      {id:uid(),date:t(0),method:'Visita',notes:'Volví con el presupuesto. Le encaja, lo comenta con el socio esta semana.'},
+      {id:uid(),date:t(4),method:'WhatsApp',notes:'Le envié ejemplos de fotos de producto. Me pidió presupuesto.'},
+      {id:uid(),date:t(11),method:'Llamada',notes:'Primer contacto. Interesados en fotos para redes sociales.'}
+    ]}];
   save();
 }
 fillControls();

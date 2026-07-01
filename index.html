@@ -244,15 +244,16 @@
 const KEY='crm_fotografia_v1';
 const CFG_KEY='crm_fotografia_cfg_v1';
 const DEFAULT_CFG={
-  methods:['Visita','Llamada','WhatsApp','Mensaje / DM','Email'],
+  methods:['Visita','Llamada','WhatsApp','Instagram','Mensaje / DM','Email'],
   statuses:[{name:'Nuevo',color:'#3a5a6b'},{name:'Seguimiento',color:'#b8862f'},{name:'Interesado',color:'#4d7c3f'},{name:'No interesado',color:'#9e2b25'},{name:'Cerrado',color:'#1b1712'}],
   placeTypes:['Restaurante','Cafetería','Hotel','Tienda','Galería','Oficina','Gimnasio'],
   zones:['Centro','Malasaña','Chamberí','Salamanca','Chueca','La Latina','Retiro']
 };
-const METHOD_ICON={'Visita':'🚶','Llamada':'📞','WhatsApp':'💬','Mensaje / DM':'✉','Email':'✎'};
+const METHOD_ICON={'Visita':'🚶','Llamada':'📞','WhatsApp':'💬','Instagram':'📸','Mensaje / DM':'✉','Email':'✎'};
 
 let data=JSON.parse(localStorage.getItem(KEY)||'[]');
 let cfg=JSON.parse(localStorage.getItem(CFG_KEY)||'null')||structuredClone(DEFAULT_CFG);
+if(!cfg._mv){ if(!cfg.methods.includes('Instagram')) cfg.methods.push('Instagram'); cfg._mv=1; localStorage.setItem(CFG_KEY,JSON.stringify(cfg)); }
 let openClientId=null;
 
 const $=s=>document.querySelector(s);
